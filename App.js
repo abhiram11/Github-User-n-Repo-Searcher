@@ -1,5 +1,6 @@
 import * as React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
+import GithubCatch from "./GithubCatch";
 
 export default function App() {
   return (
@@ -10,7 +11,10 @@ export default function App() {
         alignItems: "center",
       }}
     >
-      <Text>Universal React with Expo</Text>
+      <Text>Github info catcher!</Text>
+      <ScrollView vertical>
+        <GithubCatch />
+      </ScrollView>
     </View>
   );
 }
