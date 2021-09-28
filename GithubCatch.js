@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button, TouchableOpacity } from "react-native";
 
 export default function GithubCatch() {
   const [username, setUsername] = useState("");
@@ -40,11 +40,11 @@ export default function GithubCatch() {
         // onPress={() => setLoading(!loading)}
       />
 
-      <Text style={{ padding: 20 }}>Repos : </Text>
+      <Text style={{ padding: 20 }}>Your Repositories 👇🏼{"\n"}</Text>
       {repos?.map((repo, index) => (
-        <Text key={repo.id} style={{ padding: 10 }}>
-          {repo.name}
-        </Text>
+        <TouchableOpacity key={repo.id} onPress={() => console.log(repo)}>
+          <Text style={{ padding: 10 }}>{repo.name}</Text>
+        </TouchableOpacity>
       ))}
     </View>
   );
