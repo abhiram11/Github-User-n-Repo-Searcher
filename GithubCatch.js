@@ -1,6 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 
 export default function GithubCatch() {
   const [username, setUsername] = useState("");
@@ -27,7 +34,7 @@ export default function GithubCatch() {
 
   return (
     <View>
-      <Text>Github info catcher!!!!!!</Text>
+      <Text>Github Info Catcher 🕸</Text>
       <TextInput
         placeholder="Enter username here"
         value={username}
@@ -46,8 +53,26 @@ export default function GithubCatch() {
         <Text style={{ padding: 10 }}>
           Repo Name : {repoInfoDisplayData.name}
           {"\n"}
-          forks_count, language updated_at, watchers_count, owner.avatar_url,
-          owner.login
+          Forks Count:{repoInfoDisplayData.forks_count}
+          {"\n"}
+          Language used:{repoInfoDisplayData.language}
+          {"\n"}
+          Owner Information:{"\n"}
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Image
+              source={{ uri: repoInfoDisplayData.owner.avatar_url }}
+              style={{ width: 32, height: 32 }}
+            />
+            <Text>{repoInfoDisplayData.owner.login}</Text>
+          </View>
+          {/* forks_count, language updated_at, watchers_count, owner.avatar_url, */}
+          {/* owner.login */}
         </Text>
       ) : null}
 

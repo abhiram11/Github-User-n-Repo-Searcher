@@ -11,7 +11,7 @@ export default function App() {
         alignItems: "center",
       }}
     >
-      <Text>Github info catcher!</Text>
+      {/* <Text>Github info catcher!</Text> */}
       <ScrollView vertical>
         <GithubCatch />
       </ScrollView>
