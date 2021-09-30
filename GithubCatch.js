@@ -28,10 +28,10 @@ export default function GithubCatch() {
     // console.log("Value of e:", e);
     if (username.length < 1) {
       console.log("Enter a username first");
-      return Alert.alert("Enter a username first");
+      return Alert.alert("Enter a username first!");
     }
 
-    console.log("Searching");
+    // console.log("Searching");
     // submit the form entirely, we dont want form to do the submnit,
     //we want to do it our own
     setLoading(true);
@@ -40,7 +40,7 @@ export default function GithubCatch() {
       method: "get",
       url: `https://api.github.com/users/${username.toLowerCase()}/repos`,
     }).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setLoading(false);
       setRepos(response.data);
     });
@@ -169,6 +169,7 @@ const RepoCard = ({ repoInfoDisplayData }) => {
         borderWidth: 2,
         borderRadius: 6,
         borderColor: "gray",
+        backgroundColor: "whitesmoke",
       }}
     >
       <Text>

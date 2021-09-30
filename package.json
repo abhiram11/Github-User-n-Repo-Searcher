@@ -2,6 +2,7 @@
   "dependencies": {
     "axios": "^0.21.4",
     "expo": "~42.0.0",
+    "metro": "^0.66.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
