@@ -15,6 +15,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default function GithubCatch() {
   const [username, setUsername] = useState("");
+  const [repoSearch, setRepoSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [repos, setRepos] = useState([]);
   const [repoInfoDisplay, setRepoInfoDisplay] = useState(false);
@@ -46,80 +47,44 @@ export default function GithubCatch() {
     });
   };
 
-  return (
+  const Repositories = ({ repos }) => (
     <>
-      <View>
-        <Text style={{ margin: 10, fontSize: 24, fontWeight: 600 }}>
-          🕸 Github Info Catcher 🕸
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: 10,
-            marginHorizontal: 10,
-            padding: 6,
-            borderWidth: 1,
-            borderRadius: 4,
-            borderColor: textInputFocus ? "#4169E1" : "black",
-          }}
-        >
-          <AntDesign
-            name="user"
-            size={24}
-            style={{
-              marginRight: 4,
-              color: textInputFocus ? "#4169E1" : "black",
-            }}
-          />
-          <TextInput
-            placeholder="Enter username here"
-            value={username}
-            onFocus={() => setTextInputFocus(true)}
-            onChangeText={(value) => {
-              setUsername(value);
-            }}
-            style={{
-              fontSize: 16,
-              outline: "none",
-            }}
-          />
-        </View>
-        {/* <Text>You entered: "{username}"</Text> */}
-
-        <TouchableOpacity onPress={handleSubmit} style={{ marginVertical: 6 }}>
-          <Text
-            style={{
-              paddingVertical: 8,
-              paddingHorizontal: 14,
-              color: "white",
-              backgroundColor: "green",
-              borderRadius: 4,
-              alignSelf: "center",
-            }}
-          >
-            {loading ? "Searching..." : "Search"}
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <View>
-        {repoInfoDisplay ? (
-          <RepoCard repoInfoDisplayData={repoInfoDisplayData} />
-        ) : null}
-
-        {repos.length > 0 ? (
-          <Text
-            style={{
-              padding: 20,
-              alignSelf: "center",
-              fontSize: 16,
-              fontWeight: 600,
-            }}
-          >
-            Your Repositories 👇🏼{"\n"}
-          </Text>
-        ) : null}
-        {repos?.map((repo, index) => (
+      <Text
+        style={{
+          padding: 20,
+          alignSelf: "center",
+          fontSize: 16,
+          fontWeight: 600,
+        }}
+      >
+        Your Repositories 👇🏼{"\n"}
+      </Text>
+      <TextInput
+        placeholder="Search by name.."
+        value={repoSearch}
+        onChangeText={(value) => {
+          setRepoSearch(value);
+        }}
+        style={{
+          fontSize: 14,
+          outline: "none",
+          padding: 6,
+          marginBottom: 4,
+          borderWidth: 1,
+          borderRadius: 4,
+        }}
+      />
+      {repos
+        ?.filter((val) => {
+          if (repoSearch == "") {
+            return val;
+          } else if (
+            val.name.toLowerCase().includes(repoSearch.toLowerCase())
+          ) {
+            return val;
+          }
+        })
+        .map((repo, index) => (
           <TouchableOpacity
             key={repo.id}
             onPress={() => {
@@ -156,6 +121,70 @@ export default function GithubCatch() {
             </Text>
           </TouchableOpacity>
         ))}
+    </>
+  );
+
+  return (
+    <>
+      <View>
+        <Text style={{ margin: 10, fontSize: 24, fontWeight: 600 }}>
+          🕸 Github Info Catcher 🕸
+        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginVertical: 10,
+            marginHorizontal: 10,
+            padding: 6,
+            borderWidth: textInputFocus ? 2 : 1,
+            borderRadius: 4,
+            borderColor: textInputFocus ? "#4169E1" : "black",
+          }}
+        >
+          <AntDesign
+            name="user"
+            size={24}
+            style={{
+              marginRight: 4,
+              color: textInputFocus ? "#4169E1" : "black",
+            }}
+          />
+          <TextInput
+            placeholder="Enter username here"
+            value={username}
+            onFocus={() => setTextInputFocus(true)}
+            onChangeText={(value) => {
+              setUsername(value);
+            }}
+            style={{
+              fontSize: 16,
+              outline: "none",
+            }}
+          />
+        </View>
+
+        <TouchableOpacity onPress={handleSubmit} style={{ marginVertical: 6 }}>
+          <Text
+            style={{
+              paddingVertical: 8,
+              paddingHorizontal: 14,
+              color: "white",
+              backgroundColor: "green",
+              borderRadius: 4,
+              alignSelf: "center",
+            }}
+          >
+            {loading ? "Searching..." : "Search"}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View>
+        {repoInfoDisplay ? (
+          <RepoCard repoInfoDisplayData={repoInfoDisplayData} />
+        ) : null}
+
+        {repos.length > 0 ? <Repositories repos={repos}></Repositories> : null}
       </View>
     </>
   );
