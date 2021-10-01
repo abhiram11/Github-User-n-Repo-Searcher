@@ -107,59 +107,57 @@ export default function GithubCatch() {
           <RepoCard repoInfoDisplayData={repoInfoDisplayData} />
         ) : null}
 
-        {repos.length > 0 ? (
-          <Text
-            style={{
-              padding: 20,
-              alignSelf: "center",
-              fontSize: 16,
-              fontWeight: 600,
-            }}
-          >
-            Your Repositories 👇🏼{"\n"}
-          </Text>
-        ) : null}
-        {repos?.map((repo, index) => (
-          <TouchableOpacity
-            key={repo.id}
-            onPress={() => {
-              setRepoInfoDisplay(!repoInfoDisplay);
-              setRepoInfoDisplayData(repo);
-              setRepoClickedKey(repo.id);
-            }}
-            style={{
-              borderWidth: 1,
-              backgroundColor:
-                repo.id === repoClickedKey && repoInfoDisplay
-                  ? "black"
-                  : "white",
-              borderColor: "whitesmoke",
-              borderRadius: 4,
-              marginTop: 2,
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{
-                color:
-                  repo.id === repoClickedKey && repoInfoDisplay
-                    ? "white"
-                    : "black",
-
-                padding: 10,
-                fontWeight: 600,
-              }}
-            >
-              {repo?.name.length > 32
-                ? `${repo.name.slice(0, 32)}...`
-                : repo.name}
-            </Text>
-          </TouchableOpacity>
-        ))}
+        {repos.length > 0 ? <Repositories></Repositories> : null}
       </View>
     </>
   );
 }
+
+const Repositories = () => (
+  <>
+    <Text
+      style={{
+        padding: 20,
+        alignSelf: "center",
+        fontSize: 16,
+        fontWeight: 600,
+      }}
+    >
+      Your Repositories 👇🏼{"\n"}
+    </Text>
+    {repos?.map((repo, index) => (
+      <TouchableOpacity
+        key={repo.id}
+        onPress={() => {
+          setRepoInfoDisplay(!repoInfoDisplay);
+          setRepoInfoDisplayData(repo);
+          setRepoClickedKey(repo.id);
+        }}
+        style={{
+          borderWidth: 1,
+          backgroundColor:
+            repo.id === repoClickedKey && repoInfoDisplay ? "black" : "white",
+          borderColor: "whitesmoke",
+          borderRadius: 4,
+          marginTop: 2,
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            color:
+              repo.id === repoClickedKey && repoInfoDisplay ? "white" : "black",
+
+            padding: 10,
+            fontWeight: 600,
+          }}
+        >
+          {repo?.name.length > 32 ? `${repo.name.slice(0, 32)}...` : repo.name}
+        </Text>
+      </TouchableOpacity>
+    ))}
+  </>
+);
 
 const RepoCard = ({ repoInfoDisplayData }) => {
   return (
